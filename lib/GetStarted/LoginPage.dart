@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:pas_app/GetStarted/RegisterPage.dart';
+import 'package:pas_app/NavBotBar.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -84,7 +85,13 @@ class _LoginPageState extends State<LoginPage> {
                 margin: EdgeInsets.only(top: 170),
                 width: 300,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NavBotBar(),
+                          ));
+                    },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromARGB(255, 0, 123, 245),
                         shape: RoundedRectangleBorder(

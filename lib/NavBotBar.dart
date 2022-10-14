@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:pas_app/Screen/Home/HomeScreen.dart';
 
 class NavBotBar extends StatefulWidget {
   const NavBotBar({Key? key}) : super(key: key);
@@ -11,7 +12,46 @@ class NavBotBar extends StatefulWidget {
 
 class _NavBotBarState extends State<NavBotBar> {
   @override
+  int _currentIndex = 0;
+  final List<Widget> _widgetList = [
+    const HomeScreen(),
+    const Text('Page Two'),
+    const Text('Page Three'),
+    const Text('Page Four'),
+  ];
+
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        unselectedIconTheme: IconThemeData(color: Colors.grey[400]),
+        selectedIconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 0, 123, 245)),
+        unselectedLabelStyle: TextStyle(color: Colors.grey[400]),
+        selectedLabelStyle:
+            const TextStyle(color: Color.fromARGB(255, 0, 123, 245)),
+        fixedColor: Color.fromARGB(255, 0, 123, 245),
+        type: BottomNavigationBarType.fixed,
+        onTap: onTapped,
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.home_rounded), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite_border_outlined), label: 'Favorite'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_outlined), label: 'Profile'),
+        ],
+      ),
+      body: Center(child: _widgetList[_currentIndex]),
+    );
+  }
+
+  void onTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }
