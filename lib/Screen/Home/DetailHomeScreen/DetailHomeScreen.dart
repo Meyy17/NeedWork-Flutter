@@ -112,6 +112,219 @@ class _DetailHomeScreenState extends State<DetailHomeScreen> {
         elevation: 0,
         backgroundColor: Colors.white,
       ),
+      body: ListView(
+        children: [
+          Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                child: Image.network(
+                  widget.data.companyGallery.toString(),
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 210),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  color: Colors.white,
+                ),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                            margin: EdgeInsets.all(15),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(right: 10),
+                                      height: 50,
+                                      width: 50,
+                                      child: Image.network(
+                                          widget.data.companyLogo.toString()),
+                                    ),
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 200,
+                                          child: Text(
+                                            widget.data.companyName.toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 200,
+                                          child: Text(
+                                            widget
+                                                .data.companyDistrictAndProvince
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                                color: Color.fromARGB(
+                                                    255, 144, 144, 144)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                          width: 270,
+                                          child: Text(
+                                            widget.data.jobDescription
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 20),
+                                            width: 270,
+                                            child: Text("Estimasi Gaji : " +
+                                                widget.data.salaryEstimate
+                                                    .toString())),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text("Need : " +
+                                                widget.data.jobType
+                                                    .toString())),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text("Location : " +
+                                                widget.data.companyLocation
+                                                    .toString())),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text("Email : " +
+                                                widget.data.companyEmail
+                                                    .toString())),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text("Contact : " +
+                                                widget.data.companyContact
+                                                    .toString())),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                            margin: EdgeInsets.only(top: 20),
+                                            width: 270,
+                                            child: Text(
+                                              "Tentang Perusahaan : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text(widget.data.aboutCompany
+                                                .toString())),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                            margin: EdgeInsets.only(top: 20),
+                                            width: 270,
+                                            child: Text(
+                                              "Skill Yang Dibutuhkan : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text(widget
+                                                .data.skillRequirements
+                                                .toString())),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                            margin: EdgeInsets.only(top: 20),
+                                            width: 270,
+                                            child: Text(
+                                              "Keuntungan Bergabung Dengan Kami : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text(widget
+                                                .data.advantagesOfJoin
+                                                .toString())),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Container(
+                                            margin: EdgeInsets.only(top: 20),
+                                            width: 270,
+                                            child: Text(
+                                              "Sistem Kerja : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )),
+                                        Container(
+                                            margin: EdgeInsets.only(top: 5),
+                                            width: 270,
+                                            child: Text(widget.data.workSystem
+                                                .toString())),
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
