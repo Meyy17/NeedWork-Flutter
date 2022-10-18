@@ -39,6 +39,11 @@ dependencies:
   http:
   sqflite: ^2.0.3+1
   path_provider: ^2.0.11
+  flutter_native_splash: ^2.2.9
+  
+flutter_native_splash:
+  color: "#6EB6FD"
+  image: Asset/Image/ApplicationLogo/needworklogo.png
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +73,7 @@ flutter:
     - Asset/Image/OnBoarding/LogoOB2.png
     - Asset/Image/OnBoarding/LogoOB3.png
     - Asset/Image/OnBoarding/LogoOBFinal.png
+    - Asset/Image/ApplicationLogo/needworklogo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
