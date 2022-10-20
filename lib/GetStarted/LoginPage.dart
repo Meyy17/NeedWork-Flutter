@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:pas_app/GetStarted/RegisterPage.dart';
 import 'package:pas_app/NavBotBar.dart';
+import 'package:pas_app/Api/NeedWork/user.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,6 +16,12 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String email = "kobo@gmail.com";
+  String pass = "ItsOkyyy";
+  String Username = "Kobokan aer";
+
+  TextEditingController _email = TextEditingController();
+  TextEditingController _pass = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,22 +63,24 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               margin: EdgeInsets.only(top: 20),
               child: TextFormField(
+                  controller: _email,
                   decoration: InputDecoration(
-                hintText: 'Email',
-                contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-              )),
+                    hintText: 'Email',
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                  )),
             ),
             Container(
               margin: EdgeInsets.only(top: 10),
               child: TextFormField(
+                  controller: _pass,
                   decoration: InputDecoration(
-                hintText: 'Password',
-                contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12.0)),
-              )),
+                    hintText: 'Password',
+                    contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12.0)),
+                  )),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -86,11 +98,79 @@ class _LoginPageState extends State<LoginPage> {
                 width: 300,
                 child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => NavBotBar(),
-                          ));
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (ctx) => AlertDialog(
+                      //     content: Column(
+                      //       children: [Text(_email.text)],
+                      //     ),
+                      //     title: Text("Email " + _email.text),
+                      //     actions: <Widget>[
+                      //       TextButton(
+                      //           onPressed: () {
+                      //             Navigator.pop(context);
+                      //           },
+                      //           child: Text("No")),
+                      //       TextButton(
+                      //           onPressed: () {
+                      //             Navigator.pop(context);
+                      //           },
+                      //           child: Text("Yes")),
+                      //     ],
+                      //   ),
+                      // );
+
+                      if (_email.text == email && _pass.text == pass) {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => NavBotBar(),
+                            ));
+                      } else if (_email.text != email) {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text("Email Kamu Masukkan Salah Y DECK"),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Oke")),
+                            ],
+                          ),
+                        );
+                      } else if (_pass.text != pass) {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text(
+                                "Password Yang Kamu Masukkan Salah Y DECK"),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Oke")),
+                            ],
+                          ),
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text(
+                                "Email Dan Password Yang Kamu Masukkan Salah"),
+                            actions: <Widget>[
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text("Oke")),
+                            ],
+                          ),
+                        );
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                         primary: Color.fromARGB(255, 0, 123, 245),

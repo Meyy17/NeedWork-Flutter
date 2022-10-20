@@ -277,7 +277,7 @@ class _SavedScreenState extends State<SavedScreen> {
         ),
         body: Center(
           child: Text(
-            "No Data",
+            "You haven't saved anything",
             style: TextStyle(color: Colors.black),
           ),
         ),
