@@ -100,7 +100,7 @@ class _DetailHomeScreenState extends State<DetailHomeScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new_rounded,
+            icon: Icon(Icons.arrow_back,
                 color: Color.fromARGB(255, 0, 123, 245))),
         title: Text(
           widget.data.companyName.toString(),
@@ -194,7 +194,7 @@ class _DetailHomeScreenState extends State<DetailHomeScreen> {
                                             margin: EdgeInsets.only(top: 20),
                                             width: 270,
                                             child: Text("Estimasi Gaji : " +
-                                                widget.data.salaryEstimate
+                                                widget.data.alaryEstimate
                                                     .toString())),
                                         Container(
                                             margin: EdgeInsets.only(top: 5),
@@ -317,10 +317,15 @@ class _DetailHomeScreenState extends State<DetailHomeScreen> {
                               ],
                             )),
                       ],
-                    )
+                    ),
+                    Container(
+                        width: 200,
+                        margin: EdgeInsets.only(bottom: 20),
+                        child: ElevatedButton(
+                            onPressed: () {}, child: Text("Daftar sekarang"))),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ],

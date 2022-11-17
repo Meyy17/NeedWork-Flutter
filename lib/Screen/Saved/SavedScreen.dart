@@ -58,7 +58,7 @@ class _SavedScreenState extends State<SavedScreen> {
         jobType: maps[i]['jobType'] as String,
         jobDescription: maps[i]['jobDescription'] as String,
         skillRequirements: maps[i]['skillRequirements'] as String,
-        salaryEstimate: maps[i]['salaryEstimate'] as String,
+        alaryEstimate: maps[i]['salaryEstimate'] as String,
         advantagesOfJoin: maps[i]['advantagesOfJoin'] as String,
         workSystem: maps[i]['workSystem'] as String,
       );
@@ -237,7 +237,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                           width: 270,
                                           child: Text("Estimasi Gaji : " +
                                               onsave[index]
-                                                  .salaryEstimate
+                                                  .alaryEstimate
                                                   .toString()),
                                         ),
                                         Container(
@@ -275,10 +275,32 @@ class _SavedScreenState extends State<SavedScreen> {
           elevation: 0,
           backgroundColor: Colors.white,
         ),
-        body: Center(
-          child: Text(
-            "You haven't saved anything",
-            style: TextStyle(color: Colors.black),
+        body: Container(
+          margin: EdgeInsets.only(top: 90),
+          child: Column(
+            children: [
+              Image.asset('Asset/Image/SaveAsset/SaveAsset.png'),
+              Container(
+                width: 300,
+                child: Text(
+                  "Kamu belum menyimpan apapun di sini!",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                width: 320,
+                child: Text(
+                  "Telusuri banyak peluang kerja dan simpan terlebih dahulu, untuk mempermudah anda melakukan survei pekerjaan",
+                  style: TextStyle(color: Colors.black),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
           ),
         ),
       );

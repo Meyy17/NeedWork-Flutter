@@ -35,10 +35,10 @@ class Data {
   String? companyContact;
   String? companyEmail;
   String? poster;
+  String? alaryEstimate;
   String? jobType;
   String? jobDescription;
   String? skillRequirements;
-  String? salaryEstimate;
   String? advantagesOfJoin;
   String? workSystem;
   Null? createdAt;
@@ -55,10 +55,10 @@ class Data {
       this.companyContact,
       this.companyEmail,
       this.poster,
+      this.alaryEstimate,
       this.jobType,
       this.jobDescription,
       this.skillRequirements,
-      this.salaryEstimate,
       this.advantagesOfJoin,
       this.workSystem,
       this.createdAt,
@@ -75,10 +75,10 @@ class Data {
     companyContact = json['company_contact'];
     companyEmail = json['company_email'];
     poster = json['poster'];
+    alaryEstimate = json['alary_estimate'];
     jobType = json['job_type'];
     jobDescription = json['job_description'];
     skillRequirements = json['skill_requirements'];
-    salaryEstimate = json['salary_estimate'];
     advantagesOfJoin = json['advantages_of_join'];
     workSystem = json['work_system'];
     createdAt = json['created_at'];
@@ -100,7 +100,7 @@ class Data {
       'jobType': jobType,
       'jobDescription': jobDescription,
       'skillRequirements': skillRequirements,
-      'salaryEstimate': salaryEstimate,
+      'salaryEstimate': alaryEstimate,
       'advantagesOfJoin': advantagesOfJoin,
       'workSystem': workSystem,
     };
@@ -118,10 +118,10 @@ class Data {
     data['company_contact'] = this.companyContact;
     data['company_email'] = this.companyEmail;
     data['poster'] = this.poster;
+    data['alary_estimate'] = this.alaryEstimate;
     data['job_type'] = this.jobType;
     data['job_description'] = this.jobDescription;
     data['skill_requirements'] = this.skillRequirements;
-    data['salary_estimate'] = this.salaryEstimate;
     data['advantages_of_join'] = this.advantagesOfJoin;
     data['work_system'] = this.workSystem;
     data['created_at'] = this.createdAt;

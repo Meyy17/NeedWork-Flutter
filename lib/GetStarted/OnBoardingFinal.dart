@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pas_app/GetStarted/CheckLogin.dart';
 import 'package:pas_app/GetStarted/LoginPage.dart';
 import 'package:pas_app/GetStarted/RegisterPage.dart';
 
@@ -79,6 +80,7 @@ class _OnBoardingFinalState extends State<OnBoardingFinal> {
                       "Register",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ))),
+            Container(margin: EdgeInsets.only(top: 50), child: Text("1.0 Beta"))
           ],
         ),
       ),
