@@ -77,11 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _skill.text);
     setState(() {
       loading = false;
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NavBotBar(),
-          ));
+      Navigator.pop(context);
     });
     if (response.error == null) {
       ScaffoldMessenger.of(context)
@@ -109,15 +105,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         _agama.text,
         _alamatlengkap.text,
         _skill.text);
-    setState(() {
-      loading = false;
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NavBotBar(),
-          ));
-    });
+
     if (response.error == null) {
+      setState(() {
+        loading = false;
+        Navigator.pop(context);
+      });
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('${response.data}')));
     } else if (response.error == unauthroized) {

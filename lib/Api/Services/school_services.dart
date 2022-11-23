@@ -1,29 +1,25 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:pas_app/Api/Constant/constant.dart';
-import 'package:pas_app/Api/NeedWork/alluser.dart';
-import 'package:pas_app/Api/NeedWork/user.dart';
-import 'package:pas_app/Api/NeedWork/workexp.dart';
+import 'package:pas_app/Api/NeedWork/school.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:pas_app/Api/Services/user_services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 //getuserdetail
-Future<Apirespose> getworkexpbyuser(String id) async {
+Future<Apirespose> getschooluser(String id) async {
   Apirespose apiresponse = Apirespose();
   try {
     String token = await getToken();
     final response = await http
-        .get(Uri.parse(baseUrl + "/api/user/workexp/" + id), headers: {
+        .get(Uri.parse(baseUrl + "/api/user/school/" + id), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     });
 
     switch (response.statusCode) {
       case 200:
-        apiresponse.data = Workexpbyuser.fromJson(jsonDecode(response.body));
+        apiresponse.data = Schooldatauser.fromJson(jsonDecode(response.body));
         break;
       case 401:
         apiresponse.error = unauthroized;
@@ -39,26 +35,22 @@ Future<Apirespose> getworkexpbyuser(String id) async {
 }
 
 //post work
-Future<Apirespose> postworkexp(
-  String? namapekerjaan,
-  String? namaperusahaan,
-  String? description,
-  String? tanggalkerja,
-  String? tanggalberhenti,
+Future<Apirespose> postschooluser(
+  String? nameschool,
+  String? major,
+  String? graduation_year,
 ) async {
   Apirespose apiresponse = Apirespose();
   try {
     String token = await getToken();
-    final response = await http
-        .post(Uri.parse(baseUrl + "/api/user/workexp/post"), headers: {
+    final response =
+        await http.post(Uri.parse(baseUrl + "/api/user/school/post"), headers: {
       'Accept': 'application/json',
       'Authorization': 'Bearer $token'
     }, body: {
-      'Nama_pekerjaan': namapekerjaan,
-      'Nama_perusahaan': namaperusahaan,
-      'Description': description,
-      'Tanggal_bekerja': tanggalkerja,
-      'Tanggal_Berhenti': tanggalberhenti,
+      'nameschool': nameschool,
+      'major': major,
+      'graduation_year': graduation_year,
     });
 
     switch (response.statusCode) {
@@ -85,29 +77,25 @@ Future<Apirespose> postworkexp(
 
 //upadate work
 
-Future<Apirespose> updateworkexp(
+Future<Apirespose> updateschooluser(
   String? id,
-  String? namapekerjaan,
-  String? namaperusahaan,
-  String? description,
-  String? tanggalkerja,
-  String? tanggalberhenti,
+  String? nameschool,
+  String? major,
+  String? graduation_year,
 ) async {
   Apirespose apiResponse = Apirespose();
   try {
     String token = await getToken();
     final response = await http.put(
-        Uri.parse(baseUrl + "/api/user/workexp/update/" + id.toString()),
+        Uri.parse(baseUrl + "/api/user/school/update/" + id.toString()),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token'
         },
         body: {
-          'Nama_pekerjaan': namapekerjaan,
-          'Nama_perusahaan': namaperusahaan,
-          'Description': description,
-          'Tanggal_bekerja': tanggalkerja,
-          'Tanggal_Berhenti': tanggalberhenti,
+          'nameschool': nameschool,
+          'major': major,
+          'graduation_year': graduation_year,
         });
 
     switch (response.statusCode) {
@@ -129,12 +117,12 @@ Future<Apirespose> updateworkexp(
 }
 
 // Delete post
-Future<Apirespose> deletePost(String id) async {
+Future<Apirespose> deleteschooluser(String id) async {
   Apirespose apiResponse = Apirespose();
   try {
     String token = await getToken();
     final response = await http.delete(
-        Uri.parse(baseUrl + '/api/user/workexp/delete/' + id.toString()),
+        Uri.parse(baseUrl + '/api/user/school/delete/' + id.toString()),
         headers: {
           'Accept': 'application/json',
           'Authorization': 'Bearer $token'

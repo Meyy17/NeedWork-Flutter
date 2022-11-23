@@ -3,13 +3,17 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:pas_app/Api/NeedWork/school.dart';
 import 'package:pas_app/Api/NeedWork/user.dart';
 import 'package:pas_app/Api/NeedWork/workexp.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
+import 'package:pas_app/Api/Services/school_services.dart';
 import 'package:pas_app/Api/Services/user_services.dart';
 import 'package:pas_app/Api/Services/workexp_services.dart';
 import 'package:pas_app/GetStarted/OnBoardingFinal.dart';
 import 'package:pas_app/Screen/Profile/EditProfileScreen.dart';
+import 'package:pas_app/Screen/Profile/SchoolUser/listschooluser.dart';
+import 'package:pas_app/Screen/Profile/WorkExperience/ListWorkExperienceUser.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -21,7 +25,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final transformationController = TransformationController();
   User? user;
-  Work? work;
+  Schooldatauser? schooldatauser;
+  Workexpbyuser? workexpbyuser;
   bool isload = true;
   File? _imageFile;
   String outputDateupdate = '';
@@ -41,12 +46,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
         });
       });
 
-      Apirespose res = await getworkexp(user!.id.toString());
+      Apirespose ress = await getschooluser(user!.id.toString());
       if (response.error == null) {
         setState(() {
-          work = res.data as Work;
-          isload = false;
+          schooldatauser = ress.data as Schooldatauser;
         });
+        Apirespose res = await getworkexpbyuser(user!.id.toString());
+        if (response.error == null) {
+          setState(() {
+            workexpbyuser = res.data as Workexpbyuser;
+            isload = false;
+          });
+        }
       }
     }
   }
@@ -105,10 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       child: PopupMenuButton(
           onSelected: (result) {
             if (result == 0) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditProfileScreen()),
-              );
+              Navigatetoeditprofile(context);
             } else if (result == 3) {
               showDialog(
                 context: context,
@@ -549,7 +557,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       Container(
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigatetolistworkexp(context);
+                          },
                           child: Icon(Icons.edit),
                         ),
                       )
@@ -561,7 +571,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
-                      itemCount: work!.workexps!.length,
+                      itemCount: workexpbyuser!.workexpsuser!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           child: Column(
@@ -576,7 +586,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Container(
                                   width: double.infinity,
                                   child: Text(
-                                    work!.workexps![index].namaPekerjaan
+                                    workexpbyuser!
+                                        .workexpsuser![index].namaPekerjaan
                                         .toString(),
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
@@ -584,7 +595,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Container(
                                   width: double.infinity,
                                   child: Text(
-                                    work!.workexps![index].namaPerusahaan
+                                    workexpbyuser!
+                                        .workexpsuser![index].namaPerusahaan
                                         .toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -594,10 +606,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Container(
                                   width: double.infinity,
                                   child: Text(
-                                    work!.workexps![index].tanggalBekerja
+                                    workexpbyuser!
+                                            .workexpsuser![index].tanggalBekerja
                                             .toString() +
                                         " - " +
-                                        work!.workexps![index].tanggalBerhenti
+                                        workexpbyuser!.workexpsuser![index]
+                                            .tanggalBerhenti
                                             .toString(),
                                     style: TextStyle(
                                         color:
@@ -607,7 +621,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   padding: EdgeInsets.only(top: 10),
                                   width: double.infinity,
                                   child: Text(
-                                    work!.workexps![index].description
+                                    workexpbyuser!
+                                        .workexpsuser![index].description
                                         .toString(),
                                     style: TextStyle(
                                         color:
@@ -654,48 +669,67 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       Container(
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigatetolistschool(context);
+                          },
                           child: Icon(Icons.edit),
                         ),
                       )
                     ],
                   ),
                   Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.only(top: 5),
-                    child: Column(
-                      children: [
-                        Container(
-                            margin:
-                                const EdgeInsets.only(left: 10.0, right: 20.0),
-                            child: Divider(
-                              color: Colors.black,
-                              height: 36,
-                            )),
-                        Container(
-                            width: double.infinity,
-                            child: Text(
-                              "SMK RADEN UMAR SAID KUDUS",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )),
-                        Container(
-                            width: double.infinity,
-                            child: Text(
-                              "Rekayasa Perangkat Lunak",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 124, 124, 124)),
-                            )),
-                        Container(
-                            width: double.infinity,
-                            child: Text(
-                              "2024",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 124, 124, 124)),
-                            )),
-                      ],
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: schooldatauser!.schoolusers!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.only(top: 5),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10.0, right: 20.0),
+                                  child: Divider(
+                                    color: Colors.black,
+                                    height: 36,
+                                  )),
+                              Container(
+                                  width: double.infinity,
+                                  child: Text(
+                                    schooldatauser!
+                                        .schoolusers![index].nameschool
+                                        .toString(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  )),
+                              Container(
+                                  width: double.infinity,
+                                  child: Text(
+                                    schooldatauser!.schoolusers![index].major
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color:
+                                            Color.fromARGB(255, 124, 124, 124)),
+                                  )),
+                              Container(
+                                  width: double.infinity,
+                                  child: Text(
+                                    schooldatauser!
+                                        .schoolusers![index].graduationYear
+                                        .toString(),
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 124, 124, 124)),
+                                  )),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  )
+                  ),
                 ],
               ),
             )
@@ -703,5 +737,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> Navigatetolistworkexp(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ListWorkExperienceUser()),
+    );
+    if (!mounted) return;
+    setState(() {
+      isload = true;
+      getUser();
+    });
+  }
+
+  Future<void> Navigatetolistschool(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ListSchooluser()),
+    );
+    if (!mounted) return;
+    setState(() {
+      isload = true;
+      getUser();
+    });
+  }
+
+  Future<void> Navigatetoeditprofile(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditProfileScreen()),
+    );
+    if (!mounted) return;
+    setState(() {
+      isload = true;
+      getUser();
+    });
   }
 }

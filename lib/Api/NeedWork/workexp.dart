@@ -1,28 +1,29 @@
-class Work {
-  List<Workexps>? workexps;
+class Workexpbyuser {
+  List<Workexpsuser>? workexpsuser;
 
-  Work({this.workexps});
+  Workexpbyuser({this.workexpsuser});
 
-  Work.fromJson(Map<String, dynamic> json) {
-    if (json['workexps'] != null) {
-      workexps = <Workexps>[];
-      json['workexps'].forEach((v) {
-        workexps!.add(new Workexps.fromJson(v));
+  Workexpbyuser.fromJson(Map<String, dynamic> json) {
+    if (json['workexpsuser'] != null) {
+      workexpsuser = <Workexpsuser>[];
+      json['workexpsuser'].forEach((v) {
+        workexpsuser!.add(new Workexpsuser.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.workexps != null) {
-      data['workexps'] = this.workexps!.map((v) => v.toJson()).toList();
+    if (this.workexpsuser != null) {
+      data['workexpsuser'] = this.workexpsuser!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Workexps {
-  int? idWorkexp;
+class Workexpsuser {
+  int? id;
+  int? idUser;
   String? namaPekerjaan;
   String? namaPerusahaan;
   String? tanggalBekerja;
@@ -30,21 +31,21 @@ class Workexps {
   String? description;
   String? createdAt;
   String? updatedAt;
-  int? id;
 
-  Workexps(
-      {this.idWorkexp,
+  Workexpsuser(
+      {this.id,
+      this.idUser,
       this.namaPekerjaan,
       this.namaPerusahaan,
       this.tanggalBekerja,
       this.tanggalBerhenti,
       this.description,
       this.createdAt,
-      this.updatedAt,
-      this.id});
+      this.updatedAt});
 
-  Workexps.fromJson(Map<String, dynamic> json) {
-    idWorkexp = json['id_workexp'];
+  Workexpsuser.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    idUser = json['id_user'];
     namaPekerjaan = json['Nama_pekerjaan'];
     namaPerusahaan = json['Nama_perusahaan'];
     tanggalBekerja = json['Tanggal_bekerja'];
@@ -52,12 +53,12 @@ class Workexps {
     description = json['Description'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    id = json['id'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id_workexp'] = this.idWorkexp;
+    data['id'] = this.id;
+    data['id_user'] = this.idUser;
     data['Nama_pekerjaan'] = this.namaPekerjaan;
     data['Nama_perusahaan'] = this.namaPerusahaan;
     data['Tanggal_bekerja'] = this.tanggalBekerja;
@@ -65,7 +66,6 @@ class Workexps {
     data['Description'] = this.description;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    data['id'] = this.id;
     return data;
   }
 }

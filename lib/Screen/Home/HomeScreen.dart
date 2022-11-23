@@ -94,7 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: isloaded
             ? Center(child: CircularProgressIndicator())
             : ListView(
-                children: [showwidget(), lescoba()],
+                children: [welcome(), lescoba()],
               ),
       ),
     );
@@ -167,14 +167,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  showwidget() {
-    if (user!.jenis_kelamin == "Laki - Laki") {
-      return welcome();
-    } else {
-      return Text("Y is less than 10");
-    }
   }
 
   Widget lescoba() {
