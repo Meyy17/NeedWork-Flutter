@@ -7,7 +7,7 @@ import 'package:pas_app/GetStarted/inputdatauserScreen.dart';
 import 'package:pas_app/NavBotBar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../Api/NeedWork/user.dart';
+import '../Api/NeedWork/usermodel.dart';
 import '../Api/Response/responseapi.dart';
 import '../Api/Services/user_services.dart';
 

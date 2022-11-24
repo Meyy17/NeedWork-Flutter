@@ -7,7 +7,7 @@ import 'package:pas_app/Api/Response/responseapi.dart';
 import 'package:pas_app/Api/Services/user_services.dart';
 import 'package:pas_app/GetStarted/RegisterPage.dart';
 import 'package:pas_app/NavBotBar.dart';
-import 'package:pas_app/Api/NeedWork/user.dart';
+import 'package:pas_app/Api/NeedWork/usermodel.dart';
 import 'package:http/http.dart' as http;
 import 'package:pas_app/Screen/Home/HomeScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';

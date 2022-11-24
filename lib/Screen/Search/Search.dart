@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pas_app/Api/NeedWork/Post.dart';
+import 'package:pas_app/Api/NeedWork/Postmodel.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 

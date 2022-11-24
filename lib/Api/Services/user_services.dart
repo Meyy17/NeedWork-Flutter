@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:pas_app/Api/Constant/constant.dart';
-import 'package:pas_app/Api/NeedWork/alluser.dart';
-import 'package:pas_app/Api/NeedWork/user.dart';
+import 'package:pas_app/Api/NeedWork/usermodel.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';

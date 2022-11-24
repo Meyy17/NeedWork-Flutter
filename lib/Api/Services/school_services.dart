@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:pas_app/Api/Constant/constant.dart';
-import 'package:pas_app/Api/NeedWork/school.dart';
+import 'package:pas_app/Api/NeedWork/schoolmodel.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:pas_app/Api/Services/user_services.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pas_app/Api/NeedWork/Post.dart';
+import 'package:pas_app/Api/NeedWork/Postmodel.dart';
 import 'package:pas_app/Screen/Home/DetailHomeScreen/DetailHomeScreen.dart';
 import 'package:pas_app/Screen/Home/HomeScreen.dart';
 import 'package:sqflite/sqflite.dart';
@@ -23,7 +23,7 @@ class _SavedScreenState extends State<SavedScreen> {
       join(await getDatabasesPath(), 'saved_database.db'),
       onCreate: (db, version) {
         return db.execute(
-          'CREATE TABLE saved(id INTEGER, companyName TEXT, companyLogo TEXT, companyLocation TEXT, companyDistrictAndProvince TEXT, aboutCompany TEXT, companyGallery TEXT, companyContact TEXT, companyEmail TEXT, poster TEXT, jobType TEXT, jobDescription TEXT, skillRequirements TEXT, salaryEstimate TEXT, advantagesOfJoin TEXT, workSystem TEXT)',
+          'CREATE TABLE saved(id INTEGER, companyName TEXT, companyLogo TEXT, companyLocation TEXT, aboutCompany TEXT, companyEmail TEXT, poster TEXT, jobDescription TEXT, skillRequirements TEXT, salaryEstimate TEXT, advantagesOfJoin TEXT, workSystem TEXT)',
         );
       },
       version: 1,
@@ -45,22 +45,17 @@ class _SavedScreenState extends State<SavedScreen> {
     return List.generate(maps.length, (i) {
       return Data(
         id: maps[i]['id'] as int,
-        companyName: maps[i]['companyName'] as String,
-        companyLogo: maps[i]['companyLogo'] as String,
-        companyLocation: maps[i]['companyLocation'] as String,
-        companyDistrictAndProvince:
-            maps[i]['companyDistrictAndProvince'] as String,
-        aboutCompany: maps[i]['aboutCompany'] as String,
-        companyGallery: maps[i]['companyGallery'] as String,
-        companyContact: maps[i]['companyContact'] as String,
-        companyEmail: maps[i]['companyEmail'] as String,
-        poster: maps[i]['poster'] as String,
-        jobType: maps[i]['jobType'] as String,
-        jobDescription: maps[i]['jobDescription'] as String,
-        skillRequirements: maps[i]['skillRequirements'] as String,
-        alaryEstimate: maps[i]['salaryEstimate'] as String,
-        advantagesOfJoin: maps[i]['advantagesOfJoin'] as String,
-        workSystem: maps[i]['workSystem'] as String,
+        contactPerusahaan: maps[i]['companyName'] as String,
+        logoPerusahaan: maps[i]['companyLogo'] as String,
+        lokasiPerusahaan: maps[i]['companyLocation'] as String,
+        tentangPerusahaan: maps[i]['aboutCompany'] as String,
+        emailPerusahaan: maps[i]['companyEmail'] as String,
+        banner: maps[i]['poster'] as String,
+        dibutuhkan: maps[i]['jobDescription'] as String,
+        persyaratan: maps[i]['skillRequirements'] as String,
+        rangeGaji: maps[i]['salaryEstimate'] as String,
+        lulusanMinimal: maps[i]['advantagesOfJoin'] as String,
+        sistemkerja: maps[i]['workSystem'] as String,
       );
     });
   }
@@ -109,9 +104,9 @@ class _SavedScreenState extends State<SavedScreen> {
                           context: context,
                           builder: (ctx) => AlertDialog(
                             title: Text("Delete " +
-                                onsave[index].companyName.toString()),
+                                onsave[index].contactPerusahaan.toString()),
                             content: Text("Are you sure you want to remove " +
-                                onsave[index].companyName.toString() +
+                                onsave[index].contactPerusahaan.toString() +
                                 " from your saved list?"),
                             actions: <Widget>[
                               TextButton(
@@ -196,8 +191,9 @@ class _SavedScreenState extends State<SavedScreen> {
                                       margin: EdgeInsets.only(right: 10),
                                       height: 50,
                                       width: 50,
-                                      child: Image.network(
-                                          onsave[index].companyLogo.toString()),
+                                      child: Image.network(onsave[index]
+                                          .logoPerusahaan
+                                          .toString()),
                                     ),
                                     Column(
                                       children: [
@@ -205,7 +201,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                           width: 200,
                                           child: Text(
                                             onsave[index]
-                                                .companyName
+                                                .contactPerusahaan
                                                 .toString(),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -216,7 +212,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                           width: 200,
                                           child: Text(
                                             onsave[index]
-                                                .companyDistrictAndProvince
+                                                .lokasiPerusahaan
                                                 .toString(),
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -237,7 +233,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                           width: 270,
                                           child: Text("Estimasi Gaji : " +
                                               onsave[index]
-                                                  .alaryEstimate
+                                                  .rangeGaji
                                                   .toString()),
                                         ),
                                         Container(
@@ -248,7 +244,7 @@ class _SavedScreenState extends State<SavedScreen> {
                                         Container(
                                             width: 270,
                                             child: Text(onsave[index]
-                                                .jobType
+                                                .dibutuhkan
                                                 .toString())),
                                       ],
                                     ),

@@ -3,15 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:pas_app/Api/Constant/constant.dart';
-import 'package:pas_app/Api/NeedWork/Post.dart';
+import 'package:pas_app/Api/NeedWork/Postmodel.dart';
 import 'package:http/http.dart' as http;
 import 'package:pas_app/Api/NeedWork/alluser.dart';
-import 'package:pas_app/Api/NeedWork/user.dart';
+import 'package:pas_app/Api/NeedWork/usermodel.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
 import 'package:pas_app/Api/Services/user_services.dart';
 import 'package:pas_app/Screen/Home/DetailHomeScreen/DetailHomeScreen.dart';
 import 'package:pas_app/Screen/Home/jobvacancy.dart';
-import 'package:pas_app/Screen/Home/populer.dart';
 import 'package:pas_app/Screen/Search/Search.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,16 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     final res = await http.get(
-      Uri.parse(baseUrl + "/api/useralldata"),
+      Uri.parse(baseUrl + "/api/companyall"),
     );
     print("status code " + res.statusCode.toString());
-    alluser = Alluser.fromJson(json.decode(res.body.toString()));
-
-    // final res = await http.get(
-    //   Uri.parse(baseUrl + "/api/needworkdata"),
-    // );
-    // print("status code " + res.statusCode.toString());
-    // post = Post.fromJson(json.decode(res.body.toString()));
+    post = Post.fromJson(json.decode(res.body.toString()));
 
     setState(() {
       isloaded = false;
@@ -94,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: isloaded
             ? Center(child: CircularProgressIndicator())
             : ListView(
-                children: [welcome(), lescoba()],
+                children: [welcome(), listdata()],
               ),
       ),
     );
@@ -169,119 +162,96 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget lescoba() {
+  Widget listdata() {
     return Container(
       margin: EdgeInsets.only(top: 5),
       child: ListView.builder(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: alluser!.data!.length,
+          itemCount: post!.data!.length,
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
-              child: Text(alluser!.data![index].name.toString()),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailHomeScreen(
+                        data: post!.data![index],
+                      ),
+                    ));
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 2,
+                child: Container(
+                    margin: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(right: 10),
+                              height: 50,
+                              width: 50,
+                              child: Image.network(
+                                  post!.data![index].logoPerusahaan.toString()),
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  width: 200,
+                                  child: Text(
+                                    post!.data![index].contactPerusahaan
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  ),
+                                ),
+                                Container(
+                                  width: 200,
+                                  child: Text(
+                                    post!.data![index].lokasiPerusahaan
+                                        .toString(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                        color:
+                                            Color.fromARGB(255, 144, 144, 144)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  width: 270,
+                                  child: Text("Estimasi Gaji : " +
+                                      post!.data![index].rangeGaji.toString()),
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    width: 270,
+                                    child: Text("Need : ")),
+                                Container(
+                                    width: 270,
+                                    child: Text(post!.data![index].dibutuhkan
+                                        .toString())),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+              ),
             );
           }),
     );
   }
 }
-
-// Widget listdata() {
-//   return Container(
-//     margin: EdgeInsets.only(top: 5),
-//     child: ListView.builder(
-//         shrinkWrap: true,
-//         physics: NeverScrollableScrollPhysics(),
-//         itemCount: post!.data!.length,
-//         itemBuilder: (BuildContext context, int index) {
-//           return InkWell(
-//             onTap: () {
-//               Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                     builder: (context) => DetailHomeScreen(
-//                       data: post!.data![index],
-//                     ),
-//                   ));
-//             },
-//             child: Card(
-//               shape: RoundedRectangleBorder(
-//                 borderRadius: BorderRadius.circular(10),
-//               ),
-//               elevation: 2,
-//               child: Container(
-//                   margin: EdgeInsets.all(15),
-//                   child: Column(
-//                     children: [
-//                       Row(
-//                         children: [
-//                           Container(
-//                             margin: EdgeInsets.only(right: 10),
-//                             height: 50,
-//                             width: 50,
-//                             child: Image.network(
-//                                 post!.data![index].companyLogo.toString()),
-//                           ),
-//                           Column(
-//                             children: [
-//                               Container(
-//                                 width: 200,
-//                                 child: Text(
-//                                   post!.data![index].companyName.toString(),
-//                                   style: TextStyle(
-//                                       fontWeight: FontWeight.bold,
-//                                       fontSize: 14),
-//                                 ),
-//                               ),
-//                               Container(
-//                                 width: 200,
-//                                 child: Text(
-//                                   post!
-//                                       .data![index].companyDistrictAndProvince
-//                                       .toString(),
-//                                   style: TextStyle(
-//                                       fontWeight: FontWeight.bold,
-//                                       fontSize: 12,
-//                                       color:
-//                                           Color.fromARGB(255, 144, 144, 144)),
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ],
-//                       ),
-//                       Row(
-//                         children: [
-//                           Column(
-//                             children: [
-//                               Container(
-//                                 width: 270,
-//                                 child: Text("Estimasi Gaji : " +
-//                                     post!.data![index].alaryEstimate
-//                                         .toString()),
-//                               ),
-//                               Container(
-//                                 width: 270,
-//                                 child: Text("Estimasi Gaji : " +
-//                                     post!.data![index].alaryEstimate
-//                                         .toString()),
-//                               ),
-//                               Container(
-//                                   margin: EdgeInsets.only(top: 5, bottom: 5),
-//                                   width: 270,
-//                                   child: Text("Need : ")),
-//                               Container(
-//                                   width: 270,
-//                                   child: Text(
-//                                       post!.data![index].jobType.toString())),
-//                             ],
-//                           ),
-//                         ],
-//                       )
-//                     ],
-//                   )),
-//             ),
-//           );
-//         }),
-//   );
-
-// }

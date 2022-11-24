@@ -3,10 +3,12 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:pas_app/Api/NeedWork/school.dart';
-import 'package:pas_app/Api/NeedWork/user.dart';
-import 'package:pas_app/Api/NeedWork/workexp.dart';
+import 'package:pas_app/Api/NeedWork/portomodel.dart';
+import 'package:pas_app/Api/NeedWork/schoolmodel.dart';
+import 'package:pas_app/Api/NeedWork/usermodel.dart';
+import 'package:pas_app/Api/NeedWork/workexpmodel.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
+import 'package:pas_app/Api/Services/porto_service.dart';
 import 'package:pas_app/Api/Services/school_services.dart';
 import 'package:pas_app/Api/Services/user_services.dart';
 import 'package:pas_app/Api/Services/workexp_services.dart';
@@ -27,6 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   User? user;
   Schooldatauser? schooldatauser;
   Workexpbyuser? workexpbyuser;
+  PortofolioModel? portofolioModel;
   bool isload = true;
   File? _imageFile;
   String outputDateupdate = '';
@@ -55,8 +58,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         if (response.error == null) {
           setState(() {
             workexpbyuser = res.data as Workexpbyuser;
-            isload = false;
           });
+          Apirespose resporto = await getportouser(user!.id.toString());
+          if (response.error == null) {
+            setState(() {
+              portofolioModel = resporto.data as PortofolioModel;
+              isload = false;
+            });
+          }
         }
       }
     }
@@ -102,7 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             header(),
                             personaldata(),
                             workexperience(),
-                            education()
+                            education(),
+                            getportowidget()
                           ],
                         ),
                       ),
@@ -724,6 +734,115 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         color:
                                             Color.fromARGB(255, 124, 124, 124)),
                                   )),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getportowidget() {
+    return Container(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(0)),
+        ),
+        elevation: 5,
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.all(20),
+              width: 320,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.book_sharp),
+                      Container(
+                        width: 100,
+                        margin: EdgeInsets.only(left: 20, right: 100),
+                        child: Text("Portofolio",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16)),
+                      ),
+                      Container(
+                        child: InkWell(
+                          onTap: () {
+                            Navigatetolistschool(context);
+                          },
+                          child: Icon(Icons.edit),
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: portofolioModel!.portofolio!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          width: 300,
+                          padding: EdgeInsets.only(top: 5),
+                          child: Column(
+                            children: [
+                              Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 10.0, right: 20.0),
+                                  child: Divider(
+                                    color: Colors.black,
+                                    height: 36,
+                                  )),
+                              Row(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(right: 20),
+                                    width: 55,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.black,
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                          portofolioModel!
+                                              .portofolio![index].image
+                                              .toString(),
+                                        ))),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Container(
+                                          width: 200,
+                                          child: Text(
+                                            portofolioModel!
+                                                .portofolio![index].judul
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          )),
+                                      Container(
+                                          width: 200,
+                                          child: Text(
+                                            portofolioModel!
+                                                .portofolio![index].deskripsi
+                                                .toString(),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Color.fromARGB(
+                                                    255, 124, 124, 124)),
+                                          )),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         );

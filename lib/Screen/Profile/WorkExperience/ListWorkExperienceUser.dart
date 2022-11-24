@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pas_app/Api/Constant/constant.dart';
-import 'package:pas_app/Api/NeedWork/user.dart';
-import 'package:pas_app/Api/NeedWork/workexp.dart';
+import 'package:pas_app/Api/NeedWork/usermodel.dart';
+import 'package:pas_app/Api/NeedWork/workexpmodel.dart';
 import 'package:pas_app/Api/Response/responseapi.dart';
 import 'package:pas_app/Api/Services/user_services.dart';
 import 'package:pas_app/Api/Services/workexp_services.dart';

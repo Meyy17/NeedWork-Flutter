@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:pas_app/Api/Constant/constant.dart';
-import 'package:pas_app/Api/NeedWork/Post.dart';
+import 'package:pas_app/Api/NeedWork/Postmodel.dart';
 import 'package:http/http.dart' as http;
 import 'package:pas_app/Screen/Home/DetailHomeScreen/DetailHomeScreen.dart';
 
@@ -68,13 +68,13 @@ class _JobVacancyState extends State<JobVacancy> {
                             height: 100,
                             width: 100,
                             child: Image.network(
-                                post!.data![index].companyLogo.toString()),
+                                post!.data![index].logoPerusahaan.toString()),
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 2, bottom: 5),
                             width: 200,
                             child: Text(
-                              post!.data![index].companyName.toString(),
+                              post!.data![index].contactPerusahaan.toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 14),
                               textAlign: TextAlign.center,
@@ -83,7 +83,7 @@ class _JobVacancyState extends State<JobVacancy> {
                           Container(
                             width: 200,
                             child: Text(
-                              post!.data![index].jobType.toString(),
+                              post!.data![index].dibutuhkan.toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
@@ -94,8 +94,7 @@ class _JobVacancyState extends State<JobVacancy> {
                           Container(
                             width: 200,
                             child: Text(
-                              post!.data![index].companyDistrictAndProvince
-                                  .toString(),
+                              post!.data![index].lokasiPerusahaan.toString(),
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 12,
