@@ -22,7 +22,8 @@ class _SearchPageState extends State<SearchPage> {
               decoration: InputDecoration(
                   hoverColor: Colors.black,
                   filled: true,
-                  fillColor: Colors.grey[400],
+                  fillColor: Colors.grey[200],
+                  
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide.none),

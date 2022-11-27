@@ -12,6 +12,7 @@ import 'package:pas_app/Api/Services/user_services.dart';
 import 'package:pas_app/Screen/Home/DetailHomeScreen/DetailHomeScreen.dart';
 import 'package:pas_app/Screen/Home/jobvacancy.dart';
 import 'package:pas_app/Screen/Search/Search.dart';
+import 'package:pas_app/Shimer/shimer_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -85,10 +86,90 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
         child: isloaded
-            ? Center(child: CircularProgressIndicator())
+            ? ListView(
+                children: [
+                  ShimerWelcome(),
+                  Shimerlistdata(),
+                ],
+              )
             : ListView(
                 children: [welcome(), listdata()],
               ),
+      ),
+    );
+  }
+
+  Widget ShimerWelcome() {
+    return Card(
+      child: Container(
+        padding: EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    width: 280,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 16,
+                          width: 50,
+                          child: ShimmerWidget(height: 16, width: 50),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Container(
+                          height: 16,
+                          width: 200,
+                          child: ShimmerWidget(height: 16, width: 1),
+                        ),
+                      ],
+                    )),
+                SizedBox(
+                  height: 4,
+                ),
+                Container(
+                  width: 280,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 16,
+                        width: 150,
+                        child: ShimmerWidget(height: 16, width: 150),
+                      ),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Container(
+                        height: 16,
+                        width: 150,
+                        child: ShimmerWidget(height: 16, width: 150),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 280,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(top: 20),
+                          height: 30,
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(3),
+                              child: ShimmerWidget(height: 10, width: 120))),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -159,6 +240,92 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget Shimerlistdata() {
+    return Container(
+      margin: EdgeInsets.only(top: 5),
+      child: ListView.builder(
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          itemCount: 1,
+          itemBuilder: (BuildContext context, int index) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailHomeScreen(
+                        data: post!.data![index],
+                      ),
+                    ));
+              },
+              child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 2,
+                child: Container(
+                    margin: EdgeInsets.all(15),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                                margin: EdgeInsets.only(right: 10),
+                                height: 50,
+                                width: 50,
+                                child: ShimmerWidget(height: 50, width: 50)),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                    width: 200,
+                                    child:
+                                        ShimmerWidget(height: 10, width: 200)),
+                                SizedBox(
+                                  height: 4,
+                                ),
+                                Container(
+                                    width: 200,
+                                    child:
+                                        ShimmerWidget(height: 10, width: 200)),
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            Column(
+                              children: [
+                                Container(
+                                  width: 270,
+                                  child: ShimmerWidget(height: 10, width: 200),
+                                ),
+                                Container(
+                                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                                    width: 270,
+                                    child:
+                                        ShimmerWidget(height: 10, width: 200)),
+                                Container(
+                                  width: 270,
+                                  child: ShimmerWidget(height: 10, width: 200),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+              ),
+            );
+          }),
     );
   }
 
